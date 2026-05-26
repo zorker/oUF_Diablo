@@ -8,6 +8,11 @@ L.playerFrame = nil
 L.movePlayerFrame = nil
 L.movePlayerPowerFrame = nil
 
+local curveLowHealth = C_CurveUtil.CreateColorCurve();
+curveLowHealth:SetType(Enum.LuaCurveType.Step);
+curveLowHealth:AddPoint(0.0, CreateColor(1, 0, 0, 0.85));
+curveLowHealth:AddPoint(0.31, CreateColor(1, 0, 0, 0));
+
 ---------------------------------------------------------------------
 -- UpdateOrbTemplate(orb, templateKeyName)
 ---------------------------------------------------------------------
@@ -108,7 +113,9 @@ local function StylePlayer(self)
   ---------------------------------------------------------------------
 
   function health:PostUpdate(unit, cur, max, lossPerc)
-    self.orbFrame.FillingStatusBar:SetValue(UnitHealthPercent(unit,true), Enum.StatusBarInterpolation.ExponentialEaseOut)
+    self.orbFrame.FillingStatusBar:SetValue(UnitHealthPercent(unit, true), Enum.StatusBarInterpolation.ExponentialEaseOut)
+    local color = UnitHealthPercent(unit, true, curveLowHealth)
+    self.orbFrame.OverlayFrame.LowHealthTexture:SetVertexColor(color:GetRGBA())
   end
 
   ---------------------------------------------------------------------
