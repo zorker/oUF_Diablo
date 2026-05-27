@@ -187,12 +187,27 @@ local function StylePlayer(self)
   absorbBar:SetFillStyle(3)
   absorbBar:SetRotatesTexture(true)
 
+  --[[
+  --absorb spark texture test
+  absorbBar.sparkTexture = absorbBar:CreateTexture(nil, "ARTWORK")
+  absorbBar.sparkTexture:SetSize(256,16)
+  absorbBar.sparkTexture:SetTexture(L.mediaFolder.."absorb_spark")
+  absorbBar.sparkTexture:SetVertexColor(0.5, 0.81, 0.95, 0.7)
+  absorbBar.sparkTexture:SetBlendMode("BLEND")
+
+  local mask = absorbBar:CreateMaskTexture(nil, "BACKGROUND", nil, 2)
+  mask:SetAllPoints()
+  mask:SetTexture("Interface\\AddOns\\"..L.name.."\\media\\orb_spark_mask", "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
+  absorbBar.sparkTexture:AddMaskTexture(mask)
+  absorbBar.sparkTexture:SetPoint("TOP", absorbBar:GetStatusBarTexture(), "BOTTOM", 0, 16)
+  ]]
+
   absorbBar.clipFrame = CreateFrame("Frame", nil, absorbBar)
   absorbBar.clipFrame:SetClipsChildren(true)
   absorbBar.clipFrame:SetPoint("TOPLEFT", absorbBar)
   absorbBar.clipFrame:SetPoint("BOTTOMRIGHT", absorbBar:GetStatusBarTexture())
 
-  absorbBar.clipFrame.fill = absorbBar.clipFrame:CreateTexture(nil, "ARTWORK")
+  absorbBar.clipFrame.fill = absorbBar.clipFrame:CreateTexture(nil, "BACKGROUND", nil, 4)
   absorbBar.clipFrame.fill:SetSize(256, 256)
   absorbBar.clipFrame.fill:SetPoint("TOPLEFT")
   absorbBar.clipFrame.fill:SetTexture(L.mediaFolder.."orb_absorb")
