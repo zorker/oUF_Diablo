@@ -18,11 +18,9 @@ local function UpdateAbsorbs(self, event, unit)
     local currentAbsorb = UnitGetTotalAbsorbs(unit) or 0
     local maxHealth = UnitHealthMax(unit) or 1
 
-    print("currentAbsorb",currentAbsorb,issecretvalue(currentAbsorb))
-
     -- Set the min/max and value
     element:SetMinMaxValues(0, maxHealth)
-    element:SetValue(currentAbsorb)
+    element:SetValue(currentAbsorb, Enum.StatusBarInterpolation.ExponentialEaseOut)
 
     -- Custom post-update callback (useful for color changes, text overlays, etc.)
     if element.PostUpdate then
