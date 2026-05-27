@@ -175,6 +175,30 @@ local function StylePlayer(self)
   self.Debuffs = debuffs
 
   ---------------------------------------------------------------------
+  -- Debuff Type Coloring
+  ---------------------------------------------------------------------
+
+  local absorbBar = CreateFrame("StatusBar", nil, healthOrb.OverlayFrame)
+  absorbBar:SetSize(256, 32)
+  absorbBar:SetPoint("TOP")
+  absorbBar:SetStatusBarTexture([[Interface\TargetingFrame\UI-StatusBar]])
+  absorbBar:SetStatusBarColor(0.14, 0.61, 0.85, 1)
+
+  absorbBar.bg = absorbBar:CreateTexture(nil, "BACKGROUND")
+  absorbBar.bg:SetAllPoints(absorbBar)
+  absorbBar.bg:SetTexture([[Interface\TargetingFrame\UI-StatusBar]])
+  absorbBar.bg:SetVertexColor(0.14, 0.61, 0.85, 0.2)
+
+  absorbBar.text = absorbBar:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+  absorbBar.text:SetPoint("CENTER", absorbBar, "CENTER", 0, 0)
+
+  absorbBar.PostUpdate = function(element, unit, currentAbsorb, maxHealth)
+    element.text:SetFormattedText("%s", AbbreviateLargeNumbers(currentAbsorb))
+  end
+
+  self.CustomAbsorb = absorbBar
+
+  ---------------------------------------------------------------------
   -- right click menu
   ---------------------------------------------------------------------
 
