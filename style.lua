@@ -144,7 +144,7 @@ local function StylePlayer(self)
   end
 
   ---------------------------------------------------------------------
-  -- Debuff Type Coloring
+  -- Debuff Type Coloring for orbFrame.OverlayFrame.GlowTexture
   ---------------------------------------------------------------------
 
   local function GetDebuffTypeColor(element, unit, data, position)
@@ -175,7 +175,7 @@ local function StylePlayer(self)
   self.Debuffs = debuffs
 
   ---------------------------------------------------------------------
-  -- Debuff Type Coloring
+  -- CustomAbsorb - orb texture filling top to bottom
   ---------------------------------------------------------------------
 
   local absorbBar = CreateFrame("StatusBar", nil, healthOrb.OverlayFrame)
@@ -194,7 +194,7 @@ local function StylePlayer(self)
 
   absorbBar.clipFrame.fill = absorbBar.clipFrame:CreateTexture(nil, "ARTWORK")
   absorbBar.clipFrame.fill:SetSize(256, 256)
-  absorbBar.clipFrame.fill:SetPoint("CENTER", absorbBar)
+  absorbBar.clipFrame.fill:SetPoint("TOPLEFT")
   absorbBar.clipFrame.fill:SetTexture(L.mediaFolder.."orb_absorb")
   absorbBar.clipFrame.fill:SetVertexColor(0.5, 0.81, 0.95, 1)
   absorbBar.clipFrame.fill:SetBlendMode("BLEND")
