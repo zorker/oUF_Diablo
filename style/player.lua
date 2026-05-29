@@ -51,7 +51,7 @@ end
 local function StylePlayer(self)
 
   self:SetSize(256, 256)
-  L.playerFrame = self
+  L.O.playerFrame = self
   self:SetScale(L.S.playerScaleSetting:GetValue())
   self.elementType = "base"
 
