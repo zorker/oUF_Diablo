@@ -18,9 +18,9 @@ local UnitSpecific = {
 ---------------------------------------------------------------------
 
 local Shared = function(self, unit)
-	if(UnitSpecific[unit]) then
-		return UnitSpecific[unit](self)
-	end
+  if(UnitSpecific[unit]) then
+    return UnitSpecific[unit](self)
+  end
 end
 
 ---------------------------------------------------------------------

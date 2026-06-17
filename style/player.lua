@@ -93,8 +93,8 @@ local function StylePlayer(self)
   ---------------------------------------------------------------------
 
   function health:UpdateColor(event, unit)
-	  if(not unit or self.unit ~= unit) then return end
-	  local element = self.Health
+    if(not unit or self.unit ~= unit) then return end
+    local element = self.Health
     local templateKeyName = nil
     if(element.colorClass and (UnitIsPlayer(unit) or UnitInPartyIsAI(unit)))
       or (element.colorClassNPC and not (UnitIsPlayer(unit) or UnitInPartyIsAI(unit)))
@@ -131,8 +131,8 @@ local function StylePlayer(self)
   ---------------------------------------------------------------------
 
   function power:UpdateColor(event, unit)
-	  if(not unit or self.unit ~= unit) then return end
-	  local element = self.Power
+    if(not unit or self.unit ~= unit) then return end
+    local element = self.Power
     local powerID, powerType = UnitPowerType(unit)
     local templateKeyName = nil
     if powerType then
