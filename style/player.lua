@@ -141,8 +141,41 @@ local function StylePlayer(self)
 
   ---------------------------------------------------------------------
   -- Dispellable Debuff Highlight
-  -- self.orbFrame.OverlayFrame.GlowTexture
+  -- healthOrb.OverlayFrame.GlowTexture
   ---------------------------------------------------------------------
+
+  local function PostCreateButton(element, button, options)
+    --print("PostCreateButton", button, options)
+    button.Icon:SetAlpha(0)
+    local dispelHighlight = button:CreateTexture()
+    dispelHighlight:SetAllPoints()
+    dispelHighlight:SetTexture(healthOrb.OverlayFrame.GlowTexture:GetTexture())
+    dispelHighlight:SetDrawLayer(healthOrb.OverlayFrame.GlowTexture:GetDrawLayer())
+    button:AddDispelTypeTexture(dispelHighlight, {
+      style = Enum.CustomAuraButtonDispelTypeTextureStyle.PreserveAsset,
+      showWhenHarmful = true,
+      showWhenHelpful = false,
+      customDispelColorMap = element.__owner.colors.dispel,
+    })
+  end
+
+  local Auras = self:CreateAuras()
+  Auras.num = 1
+  Auras.maxFrameCount = 1
+  Auras.size = 256
+  Auras.disableMouse = true
+  Auras.disableCooldown = true
+  Auras.showCount = false
+  Auras.showDebuffBorder = false
+  Auras.showBuffBorder = false
+  Auras.showDuration = false
+  Auras.cancelButton = false
+  Auras.PostCreateButton = PostCreateButton
+
+  Auras:SetPoint("CENTER")
+  Auras:SetFrameLevel(healthOrb:GetFrameLevel()+3)
+
+  Auras:AddGroup(AuraUtil.AuraFilters.Harmful.."|"..AuraUtil.AuraFilters.Dispellable)
 
   ---------------------------------------------------------------------
   -- CustomAbsorb - orb texture filling top to bottom
