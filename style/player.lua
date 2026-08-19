@@ -39,6 +39,7 @@ end
 local function StylePlayer(self)
 
   self:SetSize(256, 256)
+  self:SetFrameStrata("BACKGROUND")
   L.O.playerFrame = self
   self:SetScale(L.DB.settings.player.scale)
   self.elementType = "base"
@@ -145,11 +146,11 @@ local function StylePlayer(self)
   ---------------------------------------------------------------------
 
   local function PostCreateButton(element, button, options)
-    --print("PostCreateButton", button, options)
     button.Icon:SetAlpha(0)
     local dispelHighlight = button:CreateTexture()
     dispelHighlight:SetAllPoints()
     dispelHighlight:SetTexture(healthOrb.OverlayFrame.GlowTexture:GetTexture())
+    dispelHighlight:SetBlendMode(healthOrb.OverlayFrame.GlowTexture:GetBlendMode())
     dispelHighlight:SetDrawLayer(healthOrb.OverlayFrame.GlowTexture:GetDrawLayer())
     button:AddDispelTypeTexture(dispelHighlight, {
       style = Enum.CustomAuraButtonDispelTypeTextureStyle.PreserveAsset,
