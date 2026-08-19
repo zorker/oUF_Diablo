@@ -10,18 +10,6 @@ curveLowHealth:AddPoint(0.0, CreateColor(1, 0, 0, 0.85))
 curveLowHealth:AddPoint(0.31, CreateColor(1, 0, 0, 0))
 
 ---------------------------------------------------------------------
--- Debuff Type Coloring for orbFrame.OverlayFrame.GlowTexture
----------------------------------------------------------------------
-
-local function GetDebuffTypeColor(element, unit, data, position)
-  if data and data.dispelName then
-    return C_UnitAuras.GetAuraDispelTypeColor(unit, data.auraInstanceID, element.dispelColorCurve)
-  else
-    return nil
-  end
-end
-
----------------------------------------------------------------------
 -- UpdateOrbTemplate(orb, templateKeyName)
 ---------------------------------------------------------------------
 
@@ -93,7 +81,7 @@ local function StylePlayer(self)
   ---------------------------------------------------------------------
 
   function health:UpdateColor(event, unit)
-    if(not unit or self.unit ~= unit) then return end
+    if(not unit or self.__unit ~= unit) then return end
     local element = self.Health
     local templateKeyName = nil
     if(element.colorClass and (UnitIsPlayer(unit) or UnitInPartyIsAI(unit)))
@@ -131,7 +119,7 @@ local function StylePlayer(self)
   ---------------------------------------------------------------------
 
   function power:UpdateColor(event, unit)
-    if(not unit or self.unit ~= unit) then return end
+    if(not unit or self.__unit ~= unit) then return end
     local element = self.Power
     local powerID, powerType = UnitPowerType(unit)
     local templateKeyName = nil
@@ -152,30 +140,9 @@ local function StylePlayer(self)
   end
 
   ---------------------------------------------------------------------
-  -- self.Debuffs
+  -- Dispellable Debuff Highlight
+  -- self.orbFrame.OverlayFrame.GlowTexture
   ---------------------------------------------------------------------
-
-  local debuffs = CreateFrame("Frame", nil, self)
-  debuffs.orbFrame = healthOrb
-  self.Debuffs = debuffs
-
-  ---------------------------------------------------------------------
-  -- debuffs:PostUpdate(unit)
-  ---------------------------------------------------------------------
-
-  function debuffs:PostUpdate(unit)
-    local color = nil
-    for i = 1, math.min(40, #self.sorted) do
-      color = GetDebuffTypeColor(self, unit, self.sorted[i], i)
-      if color then
-        self.orbFrame.OverlayFrame.GlowTexture:SetVertexColor(color:GetRGBA())
-        break
-      end
-    end
-    if not color then
-      self.orbFrame.OverlayFrame.GlowTexture:SetVertexColor(0.8, 0, 0, 0)
-    end
-  end
 
   ---------------------------------------------------------------------
   -- CustomAbsorb - orb texture filling top to bottom
@@ -211,9 +178,9 @@ local function StylePlayer(self)
   self:RegisterForClicks("AnyUp")
   self.Menu = function(self)
     if OpenContextMenu then
-      OpenContextMenu(self, { unit = self.unit, name = self.name, })
+      OpenContextMenu(self, { unit = self.__unit, name = self.name, })
     else
-      UnitPopup_OpenMenu(self.unit)
+      UnitPopup_OpenMenu(self.__unit)
     end
   end
   self:SetAttribute("*type2", "togglemenu")
