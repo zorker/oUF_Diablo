@@ -201,11 +201,11 @@ local function StylePlayer(self)
   absorbBar.clipFrame:SetPoint("BOTTOMRIGHT", absorbBar:GetStatusBarTexture())
 
   absorbBar.clipFrame.fill = absorbBar.clipFrame:CreateTexture(nil, "BACKGROUND", nil, 4)
-  absorbBar.clipFrame.fill:SetSize(256, 256)
-  absorbBar.clipFrame.fill:SetPoint("TOPLEFT")
+  absorbBar.clipFrame.fill:SetSize(250, 250)
+  absorbBar.clipFrame.fill:SetPoint("CENTER", healthOrb.OverlayFrame)
   absorbBar.clipFrame.fill:SetTexture(L.mediaFolder.."orb_absorb")
-  absorbBar.clipFrame.fill:SetVertexColor(0.5, 0.81, 0.95, 1)
-  absorbBar.clipFrame.fill:SetBlendMode("BLEND")
+  absorbBar.clipFrame.fill:SetVertexColor(0.5, 0.81, 0.95, 0.95)
+  absorbBar.clipFrame.fill:SetBlendMode("ADD")
 
   self.CustomAbsorb = absorbBar
 
